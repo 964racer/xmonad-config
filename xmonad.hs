@@ -1,4 +1,3 @@
---
 -- XMonad Coniguration - Kevin Smith
 --
 --
@@ -18,7 +17,16 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
+
+myTerminal :: String
 myTerminal      = "sakura"
+
+myBrowser :: String
+myBrowser =  "firefox"
+
+myEmacs :: String
+myEmacs = "emacs"
+
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -69,6 +77,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch gmrun
     , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
+    -- launch browser
+     , ((modm .|. shiftMask, xK_b     ), spawn myBrowser)
+
+     -- launch emacs
+     , ((modm .|. shiftMask, xK_x    ), spawn myEmacs)
+     
+
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
 
@@ -106,7 +121,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_h     ), sendMessage Shrink)
 
     -- Expand the master area
-    , ((modm,               xK_l     ), sendMessage Expand)
+    , ((modm,               xK_o     ), sendMessage Expand)
 
     -- Push window back into tiling
     , ((modm,               xK_t     ), withFocused $ windows . W.sink)
@@ -235,7 +250,8 @@ myEventHook = mempty
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
 myLogHook = do
-        spawnOnce "nitrogen --restore &"
+        spawnOnce "~/bin/randbg &"
+        
         spawnOnce "compton &"
 
 ------------------------------------------------------------------------
